@@ -2,18 +2,6 @@
 
 ## Version Number - Release Date
 
-### Fixed
+0.0.1 - 7/2/2019
 
-* First item fixed
-* Second item fixed
-
-### Added
-
-* New item added
-* Another new item added
-
-### Changed
-
-* Feature changed
-* Tests added
 
