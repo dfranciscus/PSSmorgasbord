@@ -16,7 +16,7 @@ function Measure-BootUpTime {
             } | Select-Object -ExpandProperty TotalMinutes
             $RoundedTime = [math]::Round($Time,2)
             [PSCustomObject]@{
-                ComputerName = $Env:COMPUTERNAME
+                ComputerName = $ComputerName
                 Time = $RoundedTime
           }
         }
