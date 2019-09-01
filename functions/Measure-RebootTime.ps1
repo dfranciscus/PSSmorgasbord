@@ -2,7 +2,7 @@
 .SYNOPSIS
     Measure Bootup time remotely by rebooting machine and waiting for connectivity through WMI
 #>
-function Measure-BootUpTime {
+function Measure-RebootTime {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true)]
