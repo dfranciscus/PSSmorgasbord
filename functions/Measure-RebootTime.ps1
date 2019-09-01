@@ -1,29 +1,9 @@
-<#
-.SYNOPSIS
-    Measure Bootup time remotely by rebooting machine and waiting for connectivity through WMI
-#>
+#requires -modules PoshRSJob
 function Measure-RebootTime {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true)]
-        [string]$ComputerName
+        [string[]]$ComputerName
     )
-
-    process {
-        Try {
-            $Time = Measure-Command {
-                Restart-Computer -ComputerName $ComputerName -Wait -For powershell -Timeout 1200 -ErrorAction Stop
-            } | Select-Object -ExpandProperty TotalMinutes
-            $RoundedTime = [math]::Round($Time,2)
-            [PSCustomObject]@{
-                ComputerName = $ComputerName
-                Time = $RoundedTime
-          }
-        }
-        catch {
-            Write-Output "$ComputerName failed"
-            $ErrorMessage = $_.Exception.Message
-            $ErrorMessage
-        }
-    }
+    $ComputerName | Start-RSJob -ScriptBlock {Get-RebootTime -ComputerName $_ } -Throttle 150 | Wait-RSJob | Get-RSJob | Receive-RSJob | select-object *
 }
